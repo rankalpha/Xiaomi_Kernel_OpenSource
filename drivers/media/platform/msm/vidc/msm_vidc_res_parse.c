@@ -518,19 +518,19 @@ error:
 	return rc;
 }
 
+/* A comparator to compare loads (needed later on) */
+int cmp(const void *a, const void *b)
+{
+	/* want to sort in reverse so flip the comparison */
+	return ((struct load_freq_table *)b)->load -
+		((struct load_freq_table *)a)->load;
+}
+
 static int msm_vidc_load_freq_table(struct msm_vidc_platform_resources *res)
 {
 	int rc = 0;
 	int num_elements = 0;
 	struct platform_device *pdev = res->pdev;
-
-	/* A comparator to compare loads (needed later on) */
-	int cmp(const void *a, const void *b)
-	{
-		/* want to sort in reverse so flip the comparison */
-		return ((struct load_freq_table *)b)->load -
-			((struct load_freq_table *)a)->load;
-	}
 
 	if (!of_find_property(pdev->dev.of_node, "qcom,load-freq-tbl", NULL)) {
 		/* qcom,load-freq-tbl is an optional property.  It likely won't
