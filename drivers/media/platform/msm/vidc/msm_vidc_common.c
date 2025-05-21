@@ -712,8 +712,6 @@ static void handle_sys_init_done(enum hal_command_response cmd, void *data)
 	return;
 }
 
-static void put_inst(struct msm_vidc_inst *inst)
-{
 	void put_inst_helper(struct kref *kref)
 	{
 		struct msm_vidc_inst *inst = container_of(kref,
@@ -722,6 +720,8 @@ static void put_inst(struct msm_vidc_inst *inst)
 		msm_vidc_destroy(inst);
 	}
 
+static void put_inst(struct msm_vidc_inst *inst)
+{
 	if (!inst)
 		return;
 
