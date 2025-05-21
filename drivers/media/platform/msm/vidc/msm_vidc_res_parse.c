@@ -54,13 +54,13 @@ fail_read:
 	return 0;
 }
 
+bool is_compatible(char *compat)
+{
+	return !!of_find_compatible_node(NULL, NULL, compat);
+}
+
 static inline enum imem_type read_imem_type(struct platform_device *pdev)
 {
-	bool is_compatible(char *compat)
-	{
-		return !!of_find_compatible_node(NULL, NULL, compat);
-	}
-
 	return is_compatible("qcom,msm-ocmem") ? IMEM_OCMEM :
 		is_compatible("qcom,msm-vmem") ? IMEM_VMEM :
 						IMEM_NONE;
