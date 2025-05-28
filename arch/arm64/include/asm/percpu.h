@@ -25,7 +25,7 @@ static inline void set_my_cpu_offset(unsigned long off)
 
 static inline unsigned long __my_cpu_offset(void)
 {
-	unsigned long off;
+	unsigned long off = 0;
 
 	/*
 	 * We want to allow caching the value, so avoid using volatile and
@@ -42,7 +42,8 @@ static inline unsigned long __my_cpu_offset(void)
 static inline unsigned long __percpu_##op(void *ptr,			\
 			unsigned long val, int size)			\
 {									\
-	unsigned long loop, ret;					\
+	unsigned long loop = 0;
+        unsigned long ret = 0;					\
 									\
 	switch (size) {							\
 	case 1:								\
